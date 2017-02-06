@@ -8,13 +8,15 @@ var getElementsByClassName = function(className) {
   var output = [];
   
   var traverse = function(node) {
-    _.each(node.childNodes, function(el) {
-      if (_.contains(el.classList, className)) {
-        output.push(el);
-      }
-      traverse(node.childNodes);
+    if (_.contains(node.classList, className)) {
+      output.push(node);
+    }
+
+    _.each(node.childNodes, function(childNode) {
+      traverse(childNode);
     });
   };
+  
   traverse(document.body);
 
   return output;
